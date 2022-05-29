@@ -1,0 +1,12 @@
+{
+  "files.exclude": {
+    "dist": true,
+    "node_modules": true,
+    ".parcel-cache": true,
+    ".vscode": true,
+    ".gitignore": true,
+    "yarn.lock": true,
+    ".editorconfig": true,
+    "assets/.gitkeep": true
+  }
+}
