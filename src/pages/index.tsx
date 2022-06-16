@@ -16,6 +16,10 @@ export const Home: FC = () => {
                 </div>
             </div>
             <div className="m-8 flex justify-center text-center">
+                Just like netlify and vercel, but open-source, decentralized,
+                and modular.
+            </div>
+            <div className="m-8 flex justify-center text-center">
                 Welcome to @edgeserverio, this page is still under construction.
             </div>
         </div>
