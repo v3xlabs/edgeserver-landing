@@ -12,6 +12,7 @@ import {
     DropdownItemsWrapper,
     DropdownWrapper,
     IconWrapper,
+    Item,
     ItemsWrapper,
     LocationWrapper,
 } from "./navbar.style";
@@ -66,17 +67,19 @@ export const Navbar: FC = () => {
     return (
         <Container>
             <ItemsWrapper ref={wrapperReference}>
-                <Link href="/">
-                    <div>
-                        <Image
-                            src="/icon.svg"
-                            width={150}
-                            height={90}
-                            alt="Icon"
-                            style={{ cursor: "pointer" }}
-                        />
-                    </div>
-                </Link>
+                <Item>
+                    <Link href="/">
+                        <div>
+                            <Image
+                                src="/icon.svg"
+                                width={150}
+                                height={90}
+                                alt="Icon"
+                                style={{ cursor: "pointer" }}
+                            />
+                        </div>
+                    </Link>
+                </Item>
                 <DropdownWrapper
                     className={dropdownActive ? "active" : ""}
                     onMouseEnter={() => {
@@ -132,7 +135,10 @@ export const Navbar: FC = () => {
                         </DropdownItemsWrapper>
                     </Dropdown>
                 </DropdownWrapper>
-                <p>sssssssssssssssssHome</p>
+
+                <Item style={{ justifyContent: "flex-end" }}>
+                    <p>sssssssssssssssssHomesssssssssssssssssHome</p>
+                </Item>
             </ItemsWrapper>
         </Container>
     );

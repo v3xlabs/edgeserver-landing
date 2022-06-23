@@ -3,14 +3,14 @@ import styled from "styled-components";
 export const ItemsWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     height: 4rem;
     align-items: center;
 `;
 
-// export const Item = styled.div`
-//     flex: 1;
-// `;
+export const Item = styled.div`
+    flex: 1;
+    display: flex;
+`;
 
 // https://stackoverflow.com/questions/32378953/keep-the-middle-item-centered-when-side-items-have-different-widths
 export const LocationWrapper = styled.button`
