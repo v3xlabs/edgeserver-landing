@@ -1,7 +1,8 @@
+/* eslint-disable unicorn/prefer-query-selector */
 import { Container } from "@components/Container";
 import Image from "next/image";
 import Link from "next/link";
-import { FC, useRef, useState } from "react";
+import { CSSProperties, FC, useEffect, useRef, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
 import {
@@ -31,21 +32,50 @@ const links: {
 
 export const Navbar: FC = () => {
     const indicatorReference = useRef<HTMLDivElement>();
-    const [dropdownActive, setDropdownActive] = useState(false);
 
+    const dropdownRefernce = useRef<HTMLDivElement>();
+    const dropdownWrapperRefernce = useRef<HTMLDivElement>();
+    const wrapperReference = useRef<HTMLDivElement>();
+
+    const [dropdownActive, setDropdownActive] = useState(false);
     const [currentPage, setCurrentPage] =
         useState<typeof links[number]["name"]>("Home");
 
+    const [initialIndicatorStyle, setInitialIndicatorStyle] =
+        useState<CSSProperties>();
+
+    useEffect(() => {
+        const currentPageIndicatorElement = document.getElementById(
+            `di_${currentPage}`
+        );
+
+        setInitialIndicatorStyle({
+            top: currentPageIndicatorElement.offsetTop,
+            height: currentPageIndicatorElement.offsetHeight,
+        });
+
+        // TODO - Come up with a better solution for getting the correct padding
+        const height = dropdownWrapperRefernce.current.clientHeight;
+        const navbarHeight = wrapperReference.current.clientHeight;
+
+        dropdownRefernce.current.style.paddingTop = `${
+            height + navbarHeight
+        }px`;
+    }, []);
+
     return (
         <Container>
-            <ItemsWrapper>
+            <ItemsWrapper ref={wrapperReference}>
                 <Link href="/">
-                    <Image
-                        src="/icon.svg"
-                        width={80}
-                        height={90}
-                        style={{ cursor: "pointer" }}
-                    />
+                    <div>
+                        <Image
+                            src="/icon.svg"
+                            width={150}
+                            height={90}
+                            alt="Icon"
+                            style={{ cursor: "pointer" }}
+                        />
+                    </div>
                 </Link>
                 <DropdownWrapper
                     className={dropdownActive ? "active" : ""}
@@ -55,6 +85,7 @@ export const Navbar: FC = () => {
                     onMouseLeave={() => {
                         setDropdownActive(false);
                     }}
+                    ref={dropdownWrapperRefernce}
                 >
                     <LocationWrapper
                         tabIndex={0}
@@ -71,12 +102,16 @@ export const Navbar: FC = () => {
                     </LocationWrapper>
                     {/*if link.name equals active, set style.top */}
 
-                    <Dropdown>
+                    <Dropdown ref={dropdownRefernce}>
                         <DropdownItemsWrapper>
-                            <DropdownIndicator ref={indicatorReference} />
+                            <DropdownIndicator
+                                style={initialIndicatorStyle}
+                                ref={indicatorReference}
+                            />
                             {links.map((link, index) => (
                                 <Link href={link.path} key={index} passHref>
                                     <DropdownItem
+                                        id={`di_${link.name}`}
                                         onClick={(event) => {
                                             setCurrentPage(link.name);
                                             const target =

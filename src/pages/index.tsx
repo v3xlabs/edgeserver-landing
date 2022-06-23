@@ -6,7 +6,7 @@ const Home: FC = () => {
     return (
         <>
             <NextSeo
-                title="Web3 Hosting - Paperax"
+                title="Web3 Hosting - EdgeServer"
                 description="Easily deploy your projects."
             />
             <Navbar></Navbar>

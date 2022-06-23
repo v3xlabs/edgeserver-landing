@@ -93,9 +93,6 @@ export const DropdownWrapper = styled.div`
 
         ${Dropdown} {
             transform: translateX(-50%) translateY(0%);
-            padding-top: calc(
-                100% + 0.5rem
-            ); /* So it doesn't glitch when hover leave top*/
         }
 
         ${IconWrapper} {

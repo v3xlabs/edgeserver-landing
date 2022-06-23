@@ -19,13 +19,14 @@ const GlobalStyle = createGlobalStyle`
 
     * { 
         box-sizing: border-box;
+        /* outline: 1px solid red; */
     }
 
     html, body {
         scroll-behavior: smooth;
         padding: 0;
         margin: 0;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Manrope', sans-serif;
         color: ${({ theme }) => theme.palette.primary.on};
         background: ${({ theme }) => theme.palette.primary.bg};
     }
