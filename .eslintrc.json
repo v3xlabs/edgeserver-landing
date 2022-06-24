@@ -3,21 +3,17 @@
     "parserOptions": {
         "ecmaVersion": 2021
     },
-
-    "ignorePatterns": ["!**/*"],
-    "plugins": ["lvksh", "styled-components-a11y", "react"],
     "extends": [
-        "plugin:lvksh/recommended",
-        "plugin:styled-components-a11y/recommended",
-        "plugin:@next/next/recommended",
-        "plugin:react/recommended"
+        "plugin:lvksh/recommended"
+    ],
+    "ignorePatterns": [
+        "!**/*"
+    ],
+    "plugins": [
+        "lvksh"
     ],
     "env": {
-        "node": true,
-        "browser": true
+        "node": true
     },
-    "rules": {
-        "quotes": ["error", "double"],
-        "react/react-in-jsx-scope": "off"
-    }
+    "rules": {}
 }
