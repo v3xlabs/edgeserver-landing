@@ -24,5 +24,3 @@ export const ButtonsWrapper = styled(Item)`
         display: none;
     }
 `;
-
-// https://stackoverflow.com/questions/32378953/keep-the-middle-item-centered-when-side-items-have-different-widths
