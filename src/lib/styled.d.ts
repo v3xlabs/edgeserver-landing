@@ -23,6 +23,14 @@ declare module "styled-components" {
                     normal: string;
                     alt: string;
                 };
+                pink: {
+                    normal: string;
+                    alt: string;
+                };
+                purple: {
+                    normal: string;
+                    alt: string;
+                };
             };
         };
 

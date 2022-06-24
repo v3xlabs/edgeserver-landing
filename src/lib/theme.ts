@@ -22,6 +22,14 @@ export const DarkTheme: DefaultTheme = {
                 normal: "#0A84FF",
                 alt: "#102841",
             },
+            pink: {
+                normal: "#EB2EEF",
+                alt: "#EB2EEF",
+            },
+            purple: {
+                normal: "#663DDB",
+                alt: "#663DDB",
+            },
         },
     },
 
