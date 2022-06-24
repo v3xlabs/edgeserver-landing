@@ -1,4 +1,6 @@
+import { enterPressed } from "@lib/utilts";
 import Link from "next/link";
+import Router from "next/router";
 import {
     CSSProperties,
     FC,
@@ -9,7 +11,9 @@ import {
 } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
+import { NavbarButtons } from "./buttons";
 import {
+    ButtonsWrapper,
     Dropdown,
     DropdownIndicator,
     DropdownItem,
@@ -29,23 +33,21 @@ export const DropdownComponent: FC<{
     const dropdownWrapperRefernce = useRef<HTMLDivElement>();
 
     const [dropdownActive, setDropdownActive] = useState(false);
-    const [currentPage, setCurrentPage] =
-        useState<typeof links[number]["name"]>("Home");
-
-    const [initialIndicatorStyle, setInitialIndicatorStyle] =
-        useState<CSSProperties>();
+    const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
+    const [indicatorStyle, setIndicatorStyle] = useState<CSSProperties>();
 
     useEffect(() => {
-        // eslint-disable-next-line unicorn/prefer-query-selector
-        const currentPageIndicatorElement = document.getElementById(
-            `di_${currentPage}`
-        );
+        const currentPageIndicatorElement = document.querySelector(
+            `#di_${currentPageIndex}`
+        ) as HTMLDivElement;
 
-        setInitialIndicatorStyle({
+        setIndicatorStyle({
             top: currentPageIndicatorElement.offsetTop,
             height: currentPageIndicatorElement.offsetHeight,
         });
+    }, [currentPageIndex]);
 
+    useEffect(() => {
         // TODO - Come up with a better solution for getting the correct padding
         const height = dropdownWrapperRefernce.current.clientHeight;
         const navbarHeight = wrapperReference.current.clientHeight;
@@ -64,6 +66,25 @@ export const DropdownComponent: FC<{
             onMouseLeave={() => {
                 setDropdownActive(false);
             }}
+            onKeyDown={(event) => {
+                if (event.key == "ArrowDown") {
+                    const newIndex = currentPageIndex + 1;
+                    const link = links[newIndex];
+
+                    if (link == undefined) return;
+
+                    setCurrentPageIndex(newIndex);
+                    Router.push(link.path);
+                } else if (event.key == "ArrowUp") {
+                    const newIndex = currentPageIndex - 1;
+                    const link = links[newIndex];
+
+                    if (link == undefined) return;
+
+                    setCurrentPageIndex(newIndex);
+                    Router.push(link.path);
+                }
+            }}
             ref={dropdownWrapperRefernce}
         >
             <LocationWrapper
@@ -72,8 +93,13 @@ export const DropdownComponent: FC<{
                     event.stopPropagation();
                     setDropdownActive(!dropdownActive);
                 }}
+                onKeyDown={(event) => {
+                    enterPressed(event, () => {
+                        setDropdownActive(!dropdownActive);
+                    });
+                }}
             >
-                <p>{currentPage}</p>
+                <p>{links[currentPageIndex].name}</p>
 
                 <IconWrapper>
                     <FaAngleDown />
@@ -83,30 +109,31 @@ export const DropdownComponent: FC<{
             <Dropdown ref={dropdownRefernce}>
                 <DropdownItemsWrapper>
                     <DropdownIndicator
-                        style={initialIndicatorStyle}
+                        style={indicatorStyle}
                         ref={indicatorReference}
                     />
                     {links.map((link, index) => (
                         <Link href={link.path} key={index} passHref>
                             <DropdownItem
-                                id={`di_${link.name}`}
-                                onClick={(event) => {
-                                    setCurrentPage(link.name);
-                                    const target =
-                                        event.target as HTMLDivElement;
-                                    const indicator =
-                                        indicatorReference.current;
-
-                                    indicator.style.top =
-                                        target.offsetTop + "px";
-                                    indicator.style.height =
-                                        target.offsetHeight + "px";
+                                tabIndex={-1}
+                                // onTouchStartCapture={(event) => {
+                                //     // event.stopPropagation();
+                                //     setCurrentPageIndex(index);
+                                //     // setDropdownActive(false);
+                                // }}
+                                id={`di_${index}`}
+                                onClick={() => {
+                                    setCurrentPageIndex(index);
                                 }}
                             >
                                 {link.name}
                             </DropdownItem>
                         </Link>
                     ))}
+
+                    <ButtonsWrapper>
+                        <NavbarButtons />
+                    </ButtonsWrapper>
                 </DropdownItemsWrapper>
             </Dropdown>
         </DropdownWrapper>

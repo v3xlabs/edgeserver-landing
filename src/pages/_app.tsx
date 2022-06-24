@@ -31,6 +31,12 @@ const GlobalStyle = createGlobalStyle`
         background: ${({ theme }) => theme.palette.primary.bg};
     }
 
+    button {
+        font-size: inherit;
+        color: inherit;
+        border: 0;
+    }
+
     h1, h2, h3, h4, h5, h6 {
         padding: 0; 
         margin: 0;

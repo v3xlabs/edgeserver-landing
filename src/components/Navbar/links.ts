@@ -8,6 +8,6 @@ export const links: {
     },
     {
         name: "Away",
-        path: "/",
+        path: "/#away",
     },
 ];

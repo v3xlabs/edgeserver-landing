@@ -1,20 +1,12 @@
+import { Button } from "@components/Standard";
 import styled from "styled-components";
 
-export const LocationWrapper = styled.button`
-    font-size: inherit;
-    color: inherit;
-    background-color: transparent;
-    border: 0;
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    border-radius: 1rem;
-    padding: 0 1rem 0 1rem;
-    cursor: pointer;
-    transition: all ease-in 0.15s;
-    transition-property: background-color;
+export const LocationWrapper = styled(Button)`
     z-index: 10;
     position: relative;
+    height: 100%;
+    transition: all ease-in 0.15s;
+    transition-property: background-color;
 `;
 
 export const IconWrapper = styled.div`
@@ -26,7 +18,7 @@ export const IconWrapper = styled.div`
 export const Dropdown = styled.div`
     position: absolute;
     transition: all ease-in-out 0.2s;
-    transition-property: padding, transform;
+    transition-property: padding, transform, top;
     min-width: 18rem;
     top: -100%;
     left: 50%;
@@ -80,6 +72,7 @@ export const DropdownItem = styled.a`
 
 export const DropdownWrapper = styled.div`
     position: relative;
+    height: 100%;
     @media (max-width: ${({ theme }) => theme.breakpoints.medium}) {
         position: static;
     }
@@ -102,5 +95,11 @@ export const DropdownWrapper = styled.div`
         ${IconWrapper} {
             transform: rotate(180deg);
         }
+    }
+`;
+
+export const ButtonsWrapper = styled.div`
+    @media (min-width: ${({ theme }) => theme.breakpoints.medium}) {
+        display: none;
     }
 `;
